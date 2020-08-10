@@ -6,9 +6,14 @@ import { WHITE, BLUE } from '../../../constants'
 const url = 'http://api.tvmaze.com/search/shows?q=stargate'
 
 class Tab0Main extends Component {
-  state = {
-    title: 'STAR GATE',
-    data: []
+  constructor(props) {
+    super(props)
+    this.setValueOfTest = this.setValueOfTest.bind(this)
+    this.state = {
+      title: 'STAR GATE',
+      data: [],
+      test: ''
+    }
   }
 
   componentDidMount = async () => {
@@ -25,15 +30,21 @@ class Tab0Main extends Component {
     console.log('someDataFromChildren', someDataFromChildren) //eslint-disable-line
   }
 
+  setValueOfTest = (test) => {
+    this.setState({ test: test })
+  }
+
   render() {
     const { title, data } = this.state
     const { navigation } = this.props
+    console.log('this.state.test', this.state)
     return (
       <View>
         <Header
           title={title}
           headerColor={BLUE}
           onPress={() => navigation.openDrawer()}
+          test={this.setValueOfTest}
           leftIcon="ios-menu"
           leftColor={WHITE}
         />

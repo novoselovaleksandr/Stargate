@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, Text, StyleSheet, Button } from 'react-native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { w } from '../../constants'
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const Header = ({ detail, leftIcon, leftColor, headerColor, title, onPress }) => {
+const Header = ({ detail, leftIcon, leftColor, headerColor, title, onPress, test }) => {
   const { viewStyle, textStyle, leftButtonStyle } = styles
   return (
     <View style={[viewStyle, { backgroundColor: headerColor }]}>
@@ -61,6 +61,12 @@ const Header = ({ detail, leftIcon, leftColor, headerColor, title, onPress }) =>
       <Text numberOfLines={1} ellipsizeMode="tail" style={[textStyle, { paddingLeft: leftIcon ? 10 : 0 }]}>
         {title}
       </Text>
+      <Button
+        onPress={() => test('abc')}
+        title="Learn More"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
     </View>
   )
 }

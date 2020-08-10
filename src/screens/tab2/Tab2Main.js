@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Header, Layout, ImageCard } from '../../components'
-import { BLUE } from '../../../constants'
+import { WHITE, BLUE } from '../../../constants'
 
 const url = 'http://api.tvmaze.com/search/shows?q=spider-man'
 
@@ -26,7 +26,13 @@ class Tab2Main extends Component {
     const { navigation } = this.props
     return (
       <View>
-        <Header title={title} headerColor={BLUE} />
+        <Header
+          title={title}
+          headerColor={BLUE}
+          onPress={() => navigation.openDrawer()}
+          leftIcon="ios-menu"
+          leftColor={WHITE}
+        />
         <Layout>
           {data.map((item) => (
             <ImageCard

@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
 
 class Tab2Details extends PureComponent {
   render() {
-    const { show } = this.props.route.params
-    const { image, name, summary } = show
+    const { image, name, summary } = this.props.route.params
     const { navigation } = this.props
     const data = { image }
     const { container, sub, h1, h2 } = styles
@@ -54,7 +53,7 @@ class Tab2Details extends PureComponent {
           <View style={sub}>
             <ImageBigCard data={data} />
             <Button
-              onPress={() => navigation.navigate(STARGATE_HOME)}
+              onPress={() => navigation.navigate('TAB0_MAIN')}
               title="Learn More"
               color="#841584"
               accessibilityLabel="Learn more about this purple button"

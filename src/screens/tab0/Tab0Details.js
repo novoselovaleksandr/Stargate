@@ -40,8 +40,7 @@ class Tab0Details extends PureComponent {
   }
 
   render() {
-    const { show } = this.props.route.params
-    const { image, name, summary } = show
+    const { image, name, summary } = this.props.route.params.show
     const { navigation } = this.props
     const data = { image }
     const { container, sub, h1, h2 } = styles

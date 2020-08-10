@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Header, Layout, ImageCard } from '../../components'
+import { BLUE } from '../../../constants'
 
 const url = 'http://api.tvmaze.com/search/shows?q=batman'
 
@@ -25,7 +26,7 @@ class Tab1Main extends Component {
     const { navigation } = this.props
     return (
       <View>
-        <Header title={title} />
+        <Header title={title} headerColor={BLUE} />
         <Layout>
           {data.map((item) => (
             <ImageCard

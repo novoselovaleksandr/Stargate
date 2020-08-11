@@ -1,8 +1,7 @@
 /** @format */
 
 import { AppRegistry } from 'react-native'
-import App from './App'
-//import App from './src/screen1'
+import { Tab0Main } from './src/screens/tab0'
 import { name as appName } from './app.json'
 
-AppRegistry.registerComponent(appName, () => App)
+AppRegistry.registerComponent(appName, () => Tab0Main)

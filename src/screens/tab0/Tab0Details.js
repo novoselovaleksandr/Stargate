@@ -34,10 +34,6 @@ const styles = StyleSheet.create({
 })
 
 class Tab0Details extends PureComponent {
-  componentWillUnmount() {
-    const { onGoBack } = this.props.route.params
-    onGoBack && onGoBack('Hello from children')
-  }
 
   render() {
     const { image, name, summary } = this.props.route.params.show
@@ -47,12 +43,11 @@ class Tab0Details extends PureComponent {
     return (
       <View style={container}>
         <Header
-          detail
           title={name}
-          onPress={() => navigation.goBack()}
-          leftIcon="ios-arrow-back"
+          onPressLeft={() => navigation.goBack()}
+          iconLeft="ios-arrow-back"
           headerColor={BLUE}
-          leftColor={WHITE}
+          colorLeft={WHITE}
         />
         <ScrollView>
           <View style={sub}>

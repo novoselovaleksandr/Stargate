@@ -22,7 +22,7 @@ class Tab0Main extends Component {
   }
 
   onGoBack = (someDataFromChildren) => {
-    console.log('someDataFromChildren123', someDataFromChildren) //eslint-disable-line
+    console.log('someDataFromChildren', someDataFromChildren) //eslint-disable-line
   }
 
   render() {
@@ -30,7 +30,7 @@ class Tab0Main extends Component {
     const { navigation } = this.props
     return (
       <View>
-        <Header title={title} headerColor={BLUE} onPress={() => navigation.openDrawer()} />
+        <Header title={title} colorRight="#fff" iconRight="magnify" onPressRight={() => console.log('Main')} />
         <Layout>
           {data.map((item) => (
             <ImageCard

@@ -22,7 +22,7 @@ class Tab0Main extends Component {
   }
 
   onGoBack = (someDataFromChildren) => {
-    console.log('someDataFromChildren12', someDataFromChildren) //eslint-disable-line
+    console.log('someDataFromChildren123', someDataFromChildren) //eslint-disable-line
   }
 
   render() {

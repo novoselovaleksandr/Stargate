@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { Header, Layout, ImageCard } from '../../components'
-import { BLUE } from '../../../constants'
+import { Header, Layout, ImageCard, SearchBar } from '../../components'
 
 const url = 'http://api.tvmaze.com/search/shows?q=stargate'
 
 class Tab0Main extends Component {
   state = {
     title: 'STAR GATE',
-    data: []
+    data: [],
+    visibleSearchBar: false
   }
 
   componentDidMount = async () => {
@@ -21,16 +21,33 @@ class Tab0Main extends Component {
     }
   }
 
-  onGoBack = (someDataFromChildren) => {
-    console.log('someDataFromChildren', someDataFromChildren) //eslint-disable-line
+  _onChangeText = (text) => {
+    console.log('text', text)
   }
 
   render() {
-    const { title, data } = this.state
+    const { title, data, visibleSearchBar } = this.state
     const { navigation } = this.props
     return (
       <View>
-        <Header title={title} colorRight="#fff" iconRight="magnify" onPressRight={() => console.log('Main')} />
+        {visibleSearchBar ? (
+          <SearchBar
+            colorRight={'#fff'}
+            iconRight="magnify"
+            placeholder="search"
+            onChangeText={this._onChangeText}
+            value={'movie'}
+            onPressRight={() => this.setState({ visibleSearchBar: false })}
+            onBlur={() => this.setState({ visibleSearchBar: true })}
+          ></SearchBar>
+        ) : (
+          <Header
+            title={title}
+            colorRight="#fff"
+            iconRight="magnify"
+            onPressRight={() => this.setState({ visibleSearchBar: true })}
+          />
+        )}
         <Layout>
           {data.map((item) => (
             <ImageCard

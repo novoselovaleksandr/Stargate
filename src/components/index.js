@@ -1,4 +1,5 @@
 export * from './Header'
+export * from './SearchBar'
 export * from './Layout'
 export * from './ImageCard'
 export * from './ImageBigCard'

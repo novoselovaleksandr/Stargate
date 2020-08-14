@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import { connect } from 'react-redux'
 import { Header, Layout, ImageCard, SearchBar } from '../../components'
+import { searchChanged } from '../../actions/index'
 
 const url = 'http://api.tvmaze.com/search/shows?q=stargate'
 
@@ -21,13 +23,15 @@ class Tab0Main extends Component {
     }
   }
 
-  _onChangeText = (text) => {
-    console.log('text', text)
+  onChangeText = (text) => {
+    this.props.searchChanged(text)
   }
 
   render() {
     const { title, data, visibleSearchBar } = this.state
-    const { navigation } = this.props
+    const { movie, navigation } = this.props
+    console.log('this.props', this.props)
+    console.log('movie', movie)
     return (
       <View>
         {visibleSearchBar ? (
@@ -35,8 +39,8 @@ class Tab0Main extends Component {
             colorRight={'#fff'}
             iconRight="magnify"
             placeholder="search"
-            onChangeText={this._onChangeText}
-            value={'movie'}
+            onChangeText={this.onChangeText}
+            value={movie}
             onPressRight={() => this.setState({ visibleSearchBar: false })}
             onBlur={() => this.setState({ visibleSearchBar: true })}
           ></SearchBar>
@@ -62,4 +66,10 @@ class Tab0Main extends Component {
   }
 }
 
-export { Tab0Main }
+const mapStateToProps = (state) => {
+  return {
+    movie: state.search.movie
+  }
+}
+
+export default connect(mapStateToProps, { searchChanged })(Tab0Main)

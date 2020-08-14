@@ -63,7 +63,7 @@ const SearchBar = ({ iconRight, colorRight, onPressRight, onChangeText, placehol
       <View style={sub}>
         <TextInput
           style={inputStyle}
-          onchangeText={onChangeText}
+          onChangeText={onChangeText}
           placeholder={placeholder}
           value={value}
           onBlur={onBlur}

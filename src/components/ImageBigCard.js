@@ -24,10 +24,11 @@ const styles = StyleSheet.create({
 const ImageBigCard = ({ data }) => {
   const { container, sub, cover } = styles
   const { image } = data
+  const defImg = 'http://picsum.photos/200/300?random=1'
   return (
     <View style={container}>
       <View style={sub}>
-        <Image style={cover} source={{ uri: image.original }} />
+        <Image style={cover} source={{ uri: image ? image.medium : defImg }} />
       </View>
     </View>
   )

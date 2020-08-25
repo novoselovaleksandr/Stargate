@@ -1,65 +1,55 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
-import { connect } from 'react-redux'
+import { useQuery } from 'react-apollo-hooks'
+import gql from 'graphql-tag'
 import { Header, Layout, ImageCard, SearchBar } from '../../components'
-import { searchChanged, getMovies } from '../../actions/index'
 
-class Tab0Main extends Component {
-  state = {
-    title: 'STAR GATE',
-    data: [],
-    visibleSearchBar: false
+const GET_SHOWS = gql`
+  query($search: String!) {
+    shows(search: $search) @rest(type: "Person", path: "search/shows?q={args.search}") {
+      show @type(name: "Show") {
+        id
+        name
+        summary
+        image @type(name: "Image") {
+          medium
+          original
+        }
+      }
+    }
   }
+`
 
-  onChangeText = (text) => {
-    this.props.searchChanged(text)
-    this.props.getMovies(text)
-  }
+const Tab0Main = ({ navigation }) => {
+  const [visible, setVisible] = useState(false)
+  const [value, setValue] = useState('StarGate')
+  const { data, loading } = useQuery(GET_SHOWS, { variables: { search: value } })
 
-  render() {
-    const { title, visibleSearchBar } = this.state
-    const { movie, navigation, data } = this.props
-    console.log('this.props', this.props)
-    console.log('movie', movie)
-    return (
-      <View>
-        {visibleSearchBar ? (
-          <SearchBar
-            colorRight={'#fff'}
-            iconRight="magnify"
-            placeholder="search"
-            onChangeText={this.onChangeText}
-            value={movie}
-            onPressRight={() => this.setState({ visibleSearchBar: false })}
-            onBlur={() => this.setState({ visibleSearchBar: true })}
-          ></SearchBar>
-        ) : (
-          <Header
-            title={title}
-            colorRight="#fff"
-            iconRight="magnify"
-            onPressRight={() => this.setState({ visibleSearchBar: true })}
-          />
-        )}
-        <Layout>
-          {data.map((item) => (
-            <ImageCard
-              data={item.show}
-              key={item.show.id}
-              onPress={() => navigation.navigate('TAB0_DETAILS', { show: item.show })}
-            />
+  const onPress = (i) => () => setVisible(i)
+  const onSearchChange = (text) => setValue(text)
+  const onScreen = (screen, show) => () => navigation.navigate(screen, show)
+  return (
+    <View>
+      {visible ? (
+        <SearchBar
+          colorRight={'#fff'}
+          iconRight="magnify"
+          placeholder="search"
+          onChangeText={onSearchChange}
+          onPressRight={onPress(false)}
+          onBlur={onPress(false)}
+        />
+      ) : (
+        <Header title={value} colorRight="#fff" iconRight="magnify" onPressRight={onPress(true)} />
+      )}
+      <Layout>
+        {!loading &&
+          data.shows.map((item) => (
+            <ImageCard data={item.show} key={item.show.id} onPress={onScreen('TAB0_DETAILS', { show: item.show })} />
           ))}
-        </Layout>
-      </View>
-    )
-  }
+      </Layout>
+    </View>
+  )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movie: state.search.movie,
-    data: state.search.data
-  }
-}
-
-export default connect(mapStateToProps, { searchChanged, getMovies })(Tab0Main)
+export default Tab0Main
